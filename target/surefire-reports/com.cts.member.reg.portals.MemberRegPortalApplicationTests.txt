@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.cts.member.reg.portals.MemberRegPortalApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.427 s - in com.cts.member.reg.portals.MemberRegPortalApplicationTests

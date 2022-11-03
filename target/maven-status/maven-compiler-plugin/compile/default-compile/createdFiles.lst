@@ -1,0 +1,14 @@
+com\cts\member\reg\portals\controller\MemberSubmitClaimsController.class
+com\cts\member\reg\portals\domain\MemberRegistrationEntity.class
+com\cts\member\reg\portals\service\MemberRegPortalServiceImpl.class
+com\cts\member\reg\portals\dto\MemberSubmitClaimsDTO.class
+com\cts\member\reg\portals\repository\MemberRegPortalRepository.class
+com\cts\member\reg\portals\domain\MemberSubmitClaimsEntity.class
+com\cts\member\reg\portals\repository\MemberSubmitClaimsRepository.class
+com\cts\member\reg\portals\controller\MemberRegPortalController.class
+com\cts\member\reg\portals\service\MemberRegPortalService.class
+com\cts\member\reg\portals\service\MemberSubmitClaimsServiceImpl.class
+com\cts\member\reg\portals\dto\MemberRegistrationDTO.class
+com\cts\member\reg\portals\MemberRegPortalApplication.class
+com\cts\member\reg\portals\utility\MemberRegistrationPortalConstants.class
+com\cts\member\reg\portals\service\MemberSubmitClaimsService.class
