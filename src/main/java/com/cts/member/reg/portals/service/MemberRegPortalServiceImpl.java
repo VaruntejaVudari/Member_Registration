@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +34,9 @@ public class MemberRegPortalServiceImpl implements MemberRegPortalService {
 	private static final String CANNOT_BE_NULL_EMPTY = " cannot be null or empty.";
 	private static final String CANNOT_BE_ENIQUE = "Username and Password should not be same.";
 	private static final String INVALID_USERNAME_PASSWORD = "Invalid Username and Password.";
+	private static final String USERNAME_PWD_ALREADY_EXIT = "The Provided Username and Password is already exist.";
 	private static final String LOGIN_SUCCESSFUL = "Login was successful.";
+	private static final String MEMBER_REG_PORTAL_SUCCESSFUL = "Member Registration Portal was successful.";
 	
 	@Override
 	public MemberRegistrationDTO registerMemberPortalRegDetails(MemberRegistrationDTO requestDTO) {
@@ -52,8 +56,10 @@ public class MemberRegPortalServiceImpl implements MemberRegPortalService {
 		}
 
 		entity = memberRegPortalJpaRepository.save(entity);
-		dto.setMemberId(entity.getMemberid());
-
+		if (entity.getMemberid() != null) {
+			dto.setMemberId(entity.getMemberid());
+			dto.setSuccessMessage(MEMBER_REG_PORTAL_SUCCESSFUL);
+		}
 		return dto;
 	}
 
@@ -77,8 +83,9 @@ public class MemberRegPortalServiceImpl implements MemberRegPortalService {
 	}
 
 	@Override
-	public String validateRegisterMemberPortalDetails(final MemberRegistrationDTO dto) {
+	public ResponseEntity<?> validateRegisterMemberPortalDetails(final MemberRegistrationDTO dto) {
 
+		ResponseEntity<?> responseEntity = null;
 		final StringBuilder builder = new StringBuilder();
 
 		if (dto.getName() == null || dto.getName().isEmpty()) {
@@ -123,15 +130,25 @@ public class MemberRegPortalServiceImpl implements MemberRegPortalService {
 		if (dto.getPassword() == null || dto.getPassword().isEmpty()) {
 			builder.append(MemberRegistrationPortalConstants.PASSWORD);
 		}
-		if (!builder.toString().isEmpty()) {
-			builder.append(CANNOT_BE_NULL_EMPTY);
+		if (builder.toString().isEmpty() && (dto.getUsername() != null && !dto.getUsername().isEmpty())
+				&& (dto.getPassword() != null && !dto.getPassword().isEmpty())) {
+			Long Memberid = memberRegPortalJpaRepository.findLoginDetailsByUsingUsernameAndPwd(dto.getUsername(),
+					dto.getPassword());
+			if (Memberid != null) {
+				builder.append(USERNAME_PWD_ALREADY_EXIT);
+			}
 		}
-		return builder.toString();
+		if (!builder.toString().isEmpty()) {
+			responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(builder.append(CANNOT_BE_NULL_EMPTY));
+		}
+		return (responseEntity == null ? ResponseEntity.status(HttpStatus.OK).body("validated") : responseEntity);
 	}
 
 	@Override
-	public String validateLoginMemberPortalDetails(MemberRegistrationDTO requestDTO) {
+	public ResponseEntity<?> validateLoginMemberPortalDetails(MemberRegistrationDTO requestDTO) {
 
+		ResponseEntity<?> responseEntity = null;
 		final StringBuilder builder = new StringBuilder();
 
 		if (requestDTO.getUsername() == null || requestDTO.getUsername().isEmpty()) {
@@ -147,9 +164,10 @@ public class MemberRegPortalServiceImpl implements MemberRegPortalService {
 			}
 		}
 		if (!builder.toString().isEmpty()) {
-			builder.append(CANNOT_BE_NULL_EMPTY);
+			responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(builder.append(CANNOT_BE_NULL_EMPTY));
 		}
-		return builder.toString();
+		return (responseEntity == null ? ResponseEntity.status(HttpStatus.OK).body("validated") : responseEntity);
 	}
 
 }

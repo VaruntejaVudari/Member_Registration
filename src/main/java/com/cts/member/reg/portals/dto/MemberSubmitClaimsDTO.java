@@ -18,6 +18,8 @@ public class MemberSubmitClaimsDTO implements Serializable {
 	private String lgIpMac;
 	private String lgIpMacUpd;
     private String hasError;
+    private String successMessage;
+    private char modeView;
     
 	public Long getMemberId() {
 		return memberId;
@@ -85,13 +87,26 @@ public class MemberSubmitClaimsDTO implements Serializable {
 	public void setHasError(String hasError) {
 		this.hasError = hasError;
 	}
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+	public char getModeView() {
+		return modeView;
+	}
+	public void setModeView(char modeView) {
+		this.modeView = modeView;
+	}
 	
 	@Override
 	public String toString() {
 		return "MemberSubmitClaimsDTO [memberId=" + memberId + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", dob=" + dob + ", dateOfAdmission=" + dateOfAdmission + ", dateOfDischarge=" + dateOfDischarge
 				+ ", providerName=" + providerName + ", totalBillAmount=" + totalBillAmount + ", lgIpMac=" + lgIpMac
-				+ ", lgIpMacUpd=" + lgIpMacUpd + ", hasError=" + hasError + "]";
+				+ ", lgIpMacUpd=" + lgIpMacUpd + ", hasError=" + hasError + ", successMessage=" + successMessage
+				+ ", modeView=" + modeView + "]";
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.cts.member.reg.portals.service;
 
+import org.springframework.http.ResponseEntity;
+
 import com.cts.member.reg.portals.dto.MemberRegistrationDTO;
 
 /**
@@ -18,13 +20,13 @@ public interface MemberRegPortalService {
 	 * @param dto
 	 * @return
 	 */
-	String validateRegisterMemberPortalDetails(MemberRegistrationDTO dto);
+	ResponseEntity<?> validateRegisterMemberPortalDetails(MemberRegistrationDTO dto);
 
 	/**
 	 * @param requestDTO
 	 * @return
 	 */
-	String validateLoginMemberPortalDetails(MemberRegistrationDTO requestDTO);
+	ResponseEntity<?> validateLoginMemberPortalDetails(MemberRegistrationDTO requestDTO);
 
 	/**
 	 * @param requestDTO

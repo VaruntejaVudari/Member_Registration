@@ -22,5 +22,6 @@ public interface MemberRegistrationPortalConstants {
 	String TOTAL_BILL_AMOUNT = "TOTALBILLAMOUNT";
 	String USER_NAME = "USERNAME";
 	String PASSWORD = "PASSWORD";
+	String MEMBER_ID_NOT_EMPTY = "Member Id is Mandatory for Update Records.";
 	
 }

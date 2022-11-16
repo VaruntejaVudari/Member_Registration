@@ -1,6 +1,9 @@
 package com.cts.member.reg.portals.dto;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author 91846
